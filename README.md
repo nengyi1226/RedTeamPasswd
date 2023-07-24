@@ -15,6 +15,6 @@ Options explained:
 
 5. Uppercase module: The first letter must be uppercase, otherwise the data will not be saved to the output dictionary
 
-This program is only for learning, communication, and testing within the legal scope, do not use for illegal purposes, otherwise all responsibilities, consequences.
+This program is only for learning, communication, and testing within the legal scope, and shall not be used for illegal purposes, otherwise all responsibilities shall be borne by the user
 
 ​																												 Author: Stupid FQ
