@@ -1,0 +1,63 @@
+import itertools
+import os
+import string
+import tqdm
+
+def generate_passwords(chunks, max_count=None):
+    count = 0
+    for length in range(1, len(chunks) + 1):
+        permutations = itertools.permutations(chunks, length)
+        for perm in permutations:
+            password = ''.join(perm)
+            if not password[0].isupper():
+                continue
+            yield password
+            count += 1
+            if max_count is not None and count >= max_count:
+                return
+
+def get_chunks_from_file(filename):
+    with open(filename, 'r') as f:
+        chunks = [line.strip() for line in f.readlines()]
+    return chunks
+
+def write_passwords_to_file(password_generator, filename, password_count=None):
+    if password_count is None:
+        with open(filename, 'w') as f:
+            for password in password_generator:
+                f.write(password + '\n')
+    else:
+        with open(filename, 'w') as f:
+            for password in tqdm.tqdm(password_generator, total=password_count):
+                f.write(password + '\n')
+
+def validate_file(filename):
+    while not os.path.isfile(filename):
+        print(f"文件 {filename} 不存在。")
+        filename = input("请重新输入文件名：")
+    return filename
+
+def main():
+    chunks_file = input("源自定义特征字典名：")
+    chunks_file = validate_file(chunks_file)
+    chunks = get_chunks_from_file(chunks_file)
+
+    max_count = input("限制最大生成数量（若不设限，请直接按 Enter）：")
+    if max_count == '':
+        max_count = None
+    else:
+        max_count = int(max_count)
+
+    output_file = input("为输出字典命名,支持在名前指定路径：")
+
+    password_count = sum(len(chunks)**i for i in range(1, len(chunks) + 1))
+    if max_count is not None:
+        password_count = min(password_count, max_count)
+
+    password_generator = generate_passwords(chunks, max_count)
+    write_passwords_to_file(password_generator, output_file, password_count)
+
+    print(f"特征字典输出位置 {output_file}。")
+
+if __name__ == "__main__":
+    main()
