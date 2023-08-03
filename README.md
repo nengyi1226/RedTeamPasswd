@@ -3,6 +3,8 @@
 
 The use of this tool requires certain information collection capabilities, such as specific date, number, name abbreviation, etc., for an individual, name abbreviation, specific date, slogan, etc., to make this data into a primitive dictionary, and combine it in a specified way with this program to efficiently verify possible data.
 
+"m1" and "m1.txt" are the source signature databases prepared by the author. Please rewrite the source dictionaries as required
+
 Options explained:
 
 1. Basic module: Do not interfere with the generated dictionary, can limit the maximum number of generated
